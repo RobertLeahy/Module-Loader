@@ -25,8 +25,6 @@ namespace module_loader {
  */
 template <typename T, typename Base>
 class base : public Base {
-template <typename, typename>
-friend class base;
 public:
 	using provides_type = typename Base::provides_type;
 private:
@@ -50,15 +48,10 @@ public:
 			provides_(get_provides())
 	{	}
 	template <typename U, typename V>
-	explicit base (base<U,V> & other) noexcept(
-		std::is_nothrow_default_constructible<std::string>::value &&
-		std::is_nothrow_default_constructible<provides_type>::value &&
-		std::is_nothrow_default_constructible<Base>::value
-	) {
-		using std::swap;
-		swap(name_,other.name_);
-		swap(provides_,other.provides_);
-	}
+	explicit base (base<U,V> & other)
+		:	name_(other.name()),
+			provides_(get_provides())
+	{	}
 	explicit base (std::string name) noexcept(is_nothrow && std::is_nothrow_move_constructible<std::string>::value)
 		:	name_(std::move(name)),
 			provides_(get_provides())
