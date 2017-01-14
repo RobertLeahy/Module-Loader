@@ -45,6 +45,7 @@ endif()
 add_library(module_loader SHARED
 	src/module_loader/object.cpp
 	src/module_loader/offer.cpp
+	src/module_loader/request.cpp
 	src/module_loader/type_name.cpp
 )
 target_link_libraries(module_loader)
@@ -52,6 +53,7 @@ target_link_libraries(module_loader)
 add_executable(tests
 	src/module_loader/test/bases.cpp
 	src/module_loader/test/inplace_object.cpp
+	src/module_loader/test/inplace_offer.cpp
 	src/module_loader/test/main.cpp
 	src/module_loader/test/type_name.cpp
 	src/module_loader/test/type_traits.cpp
