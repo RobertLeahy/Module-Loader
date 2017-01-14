@@ -31,11 +31,14 @@ namespace module_loader {
  */
 template <typename T, typename... Ts>
 class inplace_offer : public offer_base<T> {
+public:
+	using fulfill_type = typename offer_base<T>::fulfill_type;
+	using requests_type = typename offer_base<T>::requests_type;
 private:
-	typename offer_base<T>::requests_type requests_;
+	requests_type requests_;
 	using index_sequence_t = std::index_sequence_for<Ts...>;
 	static constexpr index_sequence_t index_sequence{};
-	void check_requests (const typename offer_base<T>::fulfill_type & objects) noexcept {
+	void check_requests (const fulfill_type & objects) noexcept {
 		assert(objects.size() == requests_.size());
 		#ifndef NDEBUG
 		for (auto && pair : objects) {
@@ -45,14 +48,14 @@ private:
 		#endif
 	}
 	template <std::size_t... Is>
-	std::unique_ptr<object> fulfill (const typename offer_base<T>::fulfill_type & objects, std::index_sequence<Is...>) {
+	std::unique_ptr<object> fulfill (const fulfill_type & objects, std::index_sequence<Is...>) {
 		return std::make_unique<inplace_object<T>>(
 			*this,
 			*static_cast<Ts *>(*objects[Is].first)...
 		);
 	}
 	template <std::size_t... Is>
-	std::shared_ptr<object> fulfill_shared (const typename offer_base<T>::fulfill_type & objects, std::index_sequence<Is...>) {
+	std::shared_ptr<object> fulfill_shared (const fulfill_type & objects, std::index_sequence<Is...>) {
 		return std::make_shared<inplace_object<T>>(
 			*this,
 			*static_cast<Ts *>(*objects[Is].first)...
@@ -74,14 +77,14 @@ public:
 		:	offer_base<T>(std::move(name)),
 			requests_{request(typeid(Ts))...}
 	{	}
-	virtual const typename offer_base<T>::requests_type & requests () const noexcept override {
+	virtual const requests_type & requests () const noexcept override {
 		return requests_;
 	}
-	virtual std::unique_ptr<object> fulfill (const typename offer_base<T>::fulfill_type & objects) override {
+	virtual std::unique_ptr<object> fulfill (const fulfill_type & objects) override {
 		check_requests(objects);
 		return fulfill(objects,index_sequence);
 	}
-	virtual std::shared_ptr<object> fulfill_shared (const typename offer_base<T>::fulfill_type & objects) override {
+	virtual std::shared_ptr<object> fulfill_shared (const fulfill_type & objects) override {
 		check_requests(objects);
 		return fulfill_shared(objects,index_sequence);
 	}
