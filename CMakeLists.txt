@@ -43,6 +43,8 @@ else()
 endif()
 
 add_library(module_loader SHARED
+	src/module_loader/object.cpp
+	src/module_loader/offer.cpp
 )
 target_link_libraries(module_loader)
 
