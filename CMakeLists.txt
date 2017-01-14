@@ -52,6 +52,7 @@ target_link_libraries(module_loader)
 add_executable(tests
 	src/module_loader/test/main.cpp
 	src/module_loader/test/type_name.cpp
+	src/module_loader/test/type_traits.cpp
 )
 target_link_libraries(tests module_loader)
 target_include_directories(tests PRIVATE ${CATCH_INCLUDE_DIR})
