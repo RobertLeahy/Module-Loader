@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "base.hpp"
 #include "object_base.hpp"
+#include "offer.hpp"
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -94,11 +94,9 @@ public:
 	 *		Arguments to forward through to a constructor of
 	 *		\em T.
 	 */
-	template <typename Base, typename... Ts>
-	explicit inplace_object (base<T,Base> & offer, Ts &&... args) noexcept(
-		std::is_nothrow_constructible<T,Ts...>::value &&
-		std::is_nothrow_constructible<object_base<T>,base<T,Base> &>::value
-	)	:	object_base<T>(offer),
+	template <typename... Ts>
+	explicit inplace_object (offer & offer, Ts &&... args)
+		:	object_base<T>(offer),
 			obj_(std::forward<Ts>(args)...)
 	{	}
 	virtual void * get () noexcept override {

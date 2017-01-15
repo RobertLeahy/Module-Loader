@@ -5,6 +5,7 @@
 #pragma once
 
 #include "bases.hpp"
+#include "offer.hpp"
 #include "type_name.hpp"
 #include <string>
 #include <type_traits>
@@ -47,9 +48,8 @@ public:
 		:	name_(type_name<T>()),
 			provides_(get_provides())
 	{	}
-	template <typename U, typename V>
-	explicit base (base<U,V> & other)
-		:	name_(other.name()),
+	explicit base (offer & offer)
+		:	name_(offer.name()),
 			provides_(get_provides())
 	{	}
 	explicit base (std::string name) noexcept(is_nothrow && std::is_nothrow_move_constructible<std::string>::value)
