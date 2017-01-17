@@ -55,6 +55,7 @@ add_executable(tests
 	src/module_loader/test/inplace_object.cpp
 	src/module_loader/test/inplace_offer.cpp
 	src/module_loader/test/main.cpp
+	src/module_loader/test/reference_object.cpp
 	src/module_loader/test/type_name.cpp
 	src/module_loader/test/type_traits.cpp
 )
