@@ -28,6 +28,7 @@ template <typename T, typename Base>
 class base : public Base {
 public:
 	using provides_type = typename Base::provides_type;
+	using value_type = T;
 private:
 	std::string name_;
 	provides_type provides_;
