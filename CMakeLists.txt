@@ -52,6 +52,7 @@ target_link_libraries(module_loader)
 
 add_executable(tests
 	src/module_loader/test/bases.cpp
+	src/module_loader/test/function_offer.cpp
 	src/module_loader/test/inplace_object.cpp
 	src/module_loader/test/inplace_offer.cpp
 	src/module_loader/test/main.cpp
