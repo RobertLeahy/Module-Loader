@@ -45,6 +45,7 @@ endif()
 add_library(module_loader SHARED
 	src/module_loader/object.cpp
 	src/module_loader/offer.cpp
+	src/module_loader/offer_factory.cpp
 	src/module_loader/request.cpp
 	src/module_loader/type_name.cpp
 )
