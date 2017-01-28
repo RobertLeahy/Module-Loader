@@ -63,12 +63,11 @@ public:
 	 *	fulfilled.
 	 *
 	 *	\return
-	 *		A pointer to a std::type_info object.  Note that
-	 *		this may be \em nullptr in which case this offer
-	 *		is simply a request for objects which does not
-	 *		actually offer anything.
+	 *		A pointer to a std::type_info object.  If this is
+	 *		the std::type_info object for \em void then this
+	 *		is simply a request for objects.
 	 */
-	virtual const std::type_info * type () const noexcept = 0;
+	virtual const std::type_info & type () const noexcept = 0;
 	/**
 	 *	Retrieves a human readable name for this object.
 	 *
@@ -119,9 +118,6 @@ public:
 	 *	Fulfills the offer, providing the requested objects
 	 *	and obtaining an object in return.
 	 *
-	 *	If and only if \ref type returns \em nullptr then
-	 *	the returned smart pointer may be null.
-	 *
 	 *	\param [in] objects
 	 *		A collection of objects where each corresponds
 	 *		to a request returned by \ref requests.  Each
@@ -138,8 +134,9 @@ public:
 	 *
 	 *	\return
 	 *		A smart pointer which manages the lifetime of
-	 *		the resulting object, or which is null if this
-	 *		offer does not actually offer an object.
+	 *		the resulting object.  Returning a smart pointer
+	 *		which does not manage an object may result in
+	 *		undefined behavior.
 	 */
 	virtual std::unique_ptr<object> fulfill (const fulfill_type & objects) = 0;
 	virtual std::shared_ptr<object> fulfill_shared (const fulfill_type & objects) = 0;

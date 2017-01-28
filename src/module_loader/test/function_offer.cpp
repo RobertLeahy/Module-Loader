@@ -21,9 +21,7 @@ SCENARIO("module_loader::function_offer objects wrap a functor and provide a mod
 			CHECK(offer.name() == "int");
 		}
 		THEN("Its type is correct") {
-			auto ptr = offer.type();
-			REQUIRE(ptr);
-			CHECK(*ptr == typeid(int));
+			CHECK(offer.type() == typeid(int));
 		}
 		THEN("It provides the correct types") {
 			auto && set = offer.provides();
@@ -109,7 +107,7 @@ SCENARIO("module_loader::function_offer objects may wrap a functor which does no
 			CHECK(offer.name() == "void");
 		}
 		THEN("Its type is correct") {
-			CHECK_FALSE(offer.type());
+			CHECK(offer.type() == typeid(void));
 		}
 		THEN("It provides the correct types") {
 			CHECK(offer.provides().empty());
@@ -131,8 +129,19 @@ SCENARIO("module_loader::function_offer objects may wrap a functor which does no
 			THEN("The wrapped functor is invoked") {
 				CHECK(i == 5);
 			}
-			THEN("No object is returned") {
-				CHECK_FALSE(ptr);
+			THEN("An object is returned") {
+				REQUIRE(ptr);
+				AND_THEN("module_loader::object::get returns a null pointer") {
+					CHECK_FALSE(ptr->get());
+					const auto & o = *ptr;
+					CHECK_FALSE(o.get());
+				}
+				AND_THEN("module_loader::object::type returns the std::type_info for void") {
+					CHECK(ptr->type() == typeid(void));
+				}
+				AND_THEN("module_loader::object::provides returns the empty set") {
+					CHECK(ptr->provides().empty());
+				}
 			}
 		}
 		WHEN("It is fulfilled and a std::shared_ptr is requested") {
@@ -144,8 +153,19 @@ SCENARIO("module_loader::function_offer objects may wrap a functor which does no
 			THEN("The wrapped functor is invoked") {
 				CHECK(i == 5);
 			}
-			THEN("No object is returned") {
-				CHECK_FALSE(ptr);
+			THEN("An object is returned") {
+				REQUIRE(ptr);
+				AND_THEN("module_loader::object::get returns a null pointer") {
+					CHECK_FALSE(ptr->get());
+					const auto & o = *ptr;
+					CHECK_FALSE(o.get());
+				}
+				AND_THEN("module_loader::object::type returns the std::type_info for void") {
+					CHECK(ptr->type() == typeid(void));
+				}
+				AND_THEN("module_loader::object::provides returns the empty set") {
+					CHECK(ptr->provides().empty());
+				}
 			}
 		}
 	}
@@ -164,9 +184,7 @@ SCENARIO("module_loader::function_offer objects may wrap a functor which returns
 			CHECK(offer.name() == "int");
 		}
 		THEN("Its type is correct") {
-			auto ptr = offer.type();
-			REQUIRE(ptr);
-			CHECK(*ptr == typeid(int));
+			CHECK(offer.type() == typeid(int));
 		}
 		THEN("It provides the correct types") {
 			auto && set = offer.provides();

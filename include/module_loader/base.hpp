@@ -10,6 +10,7 @@
 #include <string>
 #include <type_traits>
 #include <typeindex>
+#include <typeinfo>
 #include <unordered_set>
 #include <utility>
 
@@ -62,6 +63,9 @@ public:
 	}
 	virtual const provides_type & provides () const noexcept override {
 		return provides_;
+	}
+	virtual const std::type_info & type () const noexcept {
+		return typeid(value_type);
 	}
 };
 

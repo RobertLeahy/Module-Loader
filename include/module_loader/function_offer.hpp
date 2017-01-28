@@ -8,6 +8,7 @@
 #include "object.hpp"
 #include "reference_object.hpp"
 #include "variadic_offer.hpp"
+#include "void_object.hpp"
 #include <memory>
 #include <string>
 #include <type_traits>
@@ -56,7 +57,11 @@ private:
 	using object_type = std::conditional_t<
 		detail::is_function_offer_reference_v<F,Ts...>,
 		reference_object<value_type>,
-		inplace_object<value_type>
+		std::conditional_t<
+			std::is_same<value_type,void>::value,
+			void_object,
+			inplace_object<value_type>
+		>
 	>;
 	using tag_t = typename std::is_same<value_type,void>::type;
 	static constexpr tag_t tag{};
@@ -71,14 +76,14 @@ private:
 	}
 	std::unique_ptr<object> fulfill (const fulfill_type & objects, std::true_type) {
 		invoke(objects);
-		return std::unique_ptr<object>{};
+		return std::make_unique<object_type>();
 	}
 	std::unique_ptr<object> fulfill (const fulfill_type & objects, std::false_type) {
 		return std::make_unique<object_type>(*this,invoke(objects));
 	}
 	std::shared_ptr<object> fulfill_shared (const fulfill_type & objects, std::true_type) {
 		invoke(objects);
-		return std::shared_ptr<object>{};
+		return std::make_shared<object_type>();
 	}
 	std::shared_ptr<object> fulfill_shared (const fulfill_type & objects, std::false_type) {
 		return std::make_shared<object_type>(*this,invoke(objects));

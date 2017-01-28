@@ -49,6 +49,7 @@ add_library(module_loader SHARED
 	src/module_loader/queue_offer_factory.cpp
 	src/module_loader/request.cpp
 	src/module_loader/type_name.cpp
+	src/module_loader/void_object.cpp
 )
 target_link_libraries(module_loader)
 
@@ -62,6 +63,7 @@ add_executable(tests
 	src/module_loader/test/reference_object.cpp
 	src/module_loader/test/type_name.cpp
 	src/module_loader/test/type_traits.cpp
+	src/module_loader/test/void_object.cpp
 )
 target_link_libraries(tests module_loader)
 target_include_directories(tests PRIVATE ${CATCH_INCLUDE_DIR})

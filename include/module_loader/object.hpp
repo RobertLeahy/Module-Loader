@@ -39,18 +39,23 @@ public:
 	 *	Obtains a pointer to the managed object.
 	 *
 	 *	\return
-	 *		A pointer.
+	 *		A pointer or \em nullptr if no object is
+	 *		managed.
 	 */
 	virtual void * get () noexcept = 0;
 	/**
 	 *	Obtains a pointer to the managed object.
 	 *
 	 *	\return
-	 *		A pointer.
+	 *		A pointer or \em nullptr if no object is
+	 *		managed.
 	 */
 	virtual const void * get () const noexcept = 0;
 	/**
 	 *	Determines the type of the managed object.
+	 *
+	 *	If no object is managed the std::type_info for
+	 *	\em void may be returned.
 	 *
 	 *	\return
 	 *		A std::type_info object.

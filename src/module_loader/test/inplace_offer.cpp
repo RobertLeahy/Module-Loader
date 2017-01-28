@@ -20,9 +20,7 @@ SCENARIO("A module_loader::inplace_offer may make no requests","[module_loader][
 			CHECK(offer.name() == "std::vector<int, std::allocator<int> >");
 		}
 		THEN("Its type is correct") {
-			auto ptr = offer.type();
-			REQUIRE(ptr);
-			CHECK(*ptr == typeid(type));
+			CHECK(offer.type() == typeid(type));
 		}
 		THEN("It provides the correct types") {
 			auto && set = offer.provides();
@@ -71,9 +69,7 @@ SCENARIO("A module_loader::inplace_offer may make requests","[module_loader][inp
 			CHECK(offer.name() == "int");
 		}
 		THEN("Its type is correct") {
-			auto ptr = offer.type();
-			REQUIRE(ptr);
-			CHECK(*ptr == typeid(type));
+			CHECK(offer.type() == typeid(type));
 		}
 		THEN("It provides the correct types") {
 			auto && set = offer.provides();
