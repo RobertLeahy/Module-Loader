@@ -8,6 +8,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 #	External libraries
 find_package(Catch REQUIRED)
+find_package(Boost 1.61.0 REQUIRED)
 
 function(add_linker_options)
 	foreach(arg ${ARGV})
@@ -17,7 +18,7 @@ function(add_linker_options)
 endfunction()
 
 #	Where our project's headers live
-include_directories(include ${CATCH_INCLUDE_DIR})
+include_directories(include ${CATCH_INCLUDE_DIR} ${BOOST_INCLUDE_DIRS})
 
 #	General command line arguments to the compiler that should be present
 #	on all platforms
@@ -43,18 +44,24 @@ else()
 endif()
 
 add_library(module_loader SHARED
+	src/module_loader/counting_resolver_observer.cpp
+	src/module_loader/dag_resolver.cpp
+	src/module_loader/not_a_dag_error.cpp
 	src/module_loader/object.cpp
 	src/module_loader/offer.cpp
 	src/module_loader/offer_factory.cpp
 	src/module_loader/queue_offer_factory.cpp
 	src/module_loader/request.cpp
+	src/module_loader/resolver_observer.cpp
 	src/module_loader/type_name.cpp
+	src/module_loader/unfulfilled_error.cpp
 	src/module_loader/void_object.cpp
 )
-target_link_libraries(module_loader)
+target_link_libraries(module_loader ${BOOST_LIBRARY_DIRS})
 
 add_executable(tests
 	src/module_loader/test/bases.cpp
+	src/module_loader/test/dag_resolver.cpp
 	src/module_loader/test/function_offer.cpp
 	src/module_loader/test/inplace_object.cpp
 	src/module_loader/test/inplace_offer.cpp
@@ -63,6 +70,7 @@ add_executable(tests
 	src/module_loader/test/reference_object.cpp
 	src/module_loader/test/type_name.cpp
 	src/module_loader/test/type_traits.cpp
+	src/module_loader/test/unfulfilled_error.cpp
 	src/module_loader/test/void_object.cpp
 )
 target_link_libraries(tests module_loader)
