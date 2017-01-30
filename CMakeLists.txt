@@ -18,7 +18,9 @@ function(add_linker_options)
 endfunction()
 
 #	Where our project's headers live
-include_directories(include ${BOOST_INCLUDE_DIRS})
+include_directories(include ${Boost_INCLUDE_DIRS})
+
+link_directories(${Boost_LIBRARY_DIRS})
 
 #	General command line arguments to the compiler that should be present
 #	on all platforms
@@ -57,7 +59,7 @@ add_library(module_loader SHARED
 	src/module_loader/unfulfilled_error.cpp
 	src/module_loader/void_object.cpp
 )
-target_link_libraries(module_loader ${BOOST_LIBRARY_DIRS})
+target_link_libraries(module_loader ${Boost_LIBRARIES})
 
 add_executable(tests
 	src/module_loader/test/bases.cpp
