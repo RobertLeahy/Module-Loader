@@ -18,7 +18,7 @@ function(add_linker_options)
 endfunction()
 
 #	Where our project's headers live
-include_directories(include ${CATCH_INCLUDE_DIR} ${BOOST_INCLUDE_DIRS})
+include_directories(include ${BOOST_INCLUDE_DIRS})
 
 #	General command line arguments to the compiler that should be present
 #	on all platforms
