@@ -1,6 +1,7 @@
 add_executable(tests
 	bases.cpp
 	dag_resolver.cpp
+	exception.cpp
 	function_offer.cpp
 	inplace_object.cpp
 	inplace_offer.cpp

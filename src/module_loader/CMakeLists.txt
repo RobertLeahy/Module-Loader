@@ -1,6 +1,7 @@
 add_library(module_loader SHARED
 	counting_resolver_observer.cpp
 	dag_resolver.cpp
+	exception.cpp
 	not_a_dag_error.cpp
 	object.cpp
 	offer.cpp
