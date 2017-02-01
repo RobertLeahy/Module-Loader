@@ -15,7 +15,6 @@ add_executable(tests
 )
 target_link_libraries(tests module_loader)
 target_include_directories(tests PRIVATE ${CATCH_INCLUDE_DIR})
-
 add_custom_target(tests_run ALL
 	COMMAND tests
 	DEPENDS tests
