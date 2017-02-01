@@ -12,6 +12,7 @@ add_library(module_loader SHARED
 	type_name.cpp
 	unfulfilled_error.cpp
 	void_object.cpp
+	whereami.cpp
 )
 target_link_libraries(module_loader ${Boost_LIBRARIES})
 add_subdirectory(test)
