@@ -1,7 +1,7 @@
 #include <module_loader/dag_resolver.hpp>
 #include <module_loader/counting_resolver_observer.hpp>
 #include <module_loader/function_offer.hpp>
-#include <module_loader/inplace_offer.hpp>
+#include <module_loader/in_place_offer.hpp>
 #include <module_loader/not_a_dag_error.hpp>
 #include <module_loader/optional.hpp>
 #include <module_loader/unfulfilled_error.hpp>
@@ -19,7 +19,7 @@ namespace {
 SCENARIO("module_loader::dag_resolver objects reject dependency graphs which cannot be resolved","[module_loader][dag_resolver]") {
 	GIVEN("A module_loader::dag_resolver whose associated module_loader::offer_factory yields module_loader::offer objects which form a dependency graph which cannot be resolved due to missing dependencies") {
 		queue_offer_factory of;
-		of.add(std::make_unique<inplace_offer<double,int>>());
+		of.add(std::make_unique<in_place_offer<double,int>>());
 		dag_resolver resolver(of);
 		THEN("Calling module_loader::dag_resolver::resolve throws a module_loader::unfulfilled_error") {
 			CHECK_THROWS_AS(resolver.resolve(),unfulfilled_error);
@@ -27,9 +27,9 @@ SCENARIO("module_loader::dag_resolver objects reject dependency graphs which can
 	}
 	GIVEN("A module_loader::dag_resolver whose associated module_loader::offer_factory yields module_loader::offer objects which form a dependency graph which cannot be resolved due to duplicate dependencies") {
 		queue_offer_factory of;
-		of.add(std::make_unique<inplace_offer<int,int>>());
-		of.add(std::make_unique<inplace_offer<int,int>>());
-		of.add(std::make_unique<inplace_offer<double,int>>());
+		of.add(std::make_unique<in_place_offer<int,int>>());
+		of.add(std::make_unique<in_place_offer<int,int>>());
+		of.add(std::make_unique<in_place_offer<double,int>>());
 		dag_resolver resolver(of);
 		THEN("Calling module_loader::dag_resolver::resolve throws a module_loader::unfulfilled_error") {
 			CHECK_THROWS_AS(resolver.resolve(),unfulfilled_error);
@@ -37,9 +37,9 @@ SCENARIO("module_loader::dag_resolver objects reject dependency graphs which can
 	}
 	GIVEN("A module_loader::dag_resolver whose associated module_loader::offer_factory yields module_loader::offer objects which form a dependency graph which cannot be resolved due to a cycle") {
 		queue_offer_factory of;
-		of.add(std::make_unique<inplace_offer<int,double>>());
-		of.add(std::make_unique<inplace_offer<double,float>>());
-		of.add(std::make_unique<inplace_offer<float,int>>());
+		of.add(std::make_unique<in_place_offer<int,double>>());
+		of.add(std::make_unique<in_place_offer<double,float>>());
+		of.add(std::make_unique<in_place_offer<float,int>>());
 		dag_resolver resolver(of);
 		THEN("Calling module_loader::dag_resolver::resolve throws a module_loader::not_a_dag_error") {
 			CHECK_THROWS_AS(resolver.resolve(),not_a_dag_error);

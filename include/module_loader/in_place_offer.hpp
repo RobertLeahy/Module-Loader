@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "inplace_object.hpp"
+#include "in_place_object.hpp"
 #include "object.hpp"
 #include "variadic_offer.hpp"
 #include "request.hpp"
@@ -15,7 +15,7 @@
 namespace module_loader {
 
 /**
- *	An offer which generates \ref inplace_object
+ *	An offer which generates \ref in_place_object
  *	objects when fulfilled.
  *
  *	\tparam T
@@ -27,7 +27,7 @@ namespace module_loader {
  *		of \em T when the offer is fulfilled.
  */
 template <typename T, typename... Ts>
-class inplace_offer : public variadic_offer<T,Ts...> {
+class in_place_offer : public variadic_offer<T,Ts...> {
 private:
 	using base = variadic_offer<T,Ts...>;
 public:
@@ -35,14 +35,14 @@ public:
 private:
 	template <std::size_t... Is>
 	std::unique_ptr<object> fulfill (const fulfill_type & objects, std::index_sequence<Is...>) {
-		return std::make_unique<inplace_object<T>>(
+		return std::make_unique<in_place_object<T>>(
 			*this,
 			*static_cast<Ts *>(*objects[Is].first)...
 		);
 	}
 	template <std::size_t... Is>
 	std::shared_ptr<object> fulfill_shared (const fulfill_type & objects, std::index_sequence<Is...>) {
-		return std::make_shared<inplace_object<T>>(
+		return std::make_shared<in_place_object<T>>(
 			*this,
 			*static_cast<Ts *>(*objects[Is].first)...
 		);

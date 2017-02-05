@@ -1,5 +1,5 @@
 #include <module_loader/unfulfilled_error.hpp>
-#include <module_loader/inplace_offer.hpp>
+#include <module_loader/in_place_offer.hpp>
 #include <module_loader/request.hpp>
 #include <memory>
 #include <stdexcept>
@@ -21,14 +21,14 @@ TEST_CASE("module_loader::unfulfilled_error::entry rejects invalid constructor a
 	request r(typeid(int));
 	rs.emplace_back(0,r,unfulfilled_error::entry::request_details::fulfilled_by_type{});
 	CHECK_THROWS_AS(unfulfilled_error::entry({},std::move(rs)),std::logic_error);
-	auto ptr = std::make_shared<inplace_offer<int,int>>();
+	auto ptr = std::make_shared<in_place_offer<int,int>>();
 	CHECK_THROWS_AS(unfulfilled_error::entry(std::move(ptr),{}),std::logic_error);
 }
 
 SCENARIO("module_loader::unfulfilled_error generates an error message appropriate for the given module_loader::unfulfilled_error::entry objects","[module_loader][unfulfilled_error]") {
 	GIVEN("A module_loader::unfulfilled_error with one module_loader::unfulfilled_error::entry") {
 		unfulfilled_error::entries_type entries;
-		auto ptr = std::make_shared<inplace_offer<int,int>>();
+		auto ptr = std::make_shared<in_place_offer<int,int>>();
 		auto && rs = ptr->requests();
 		CHECK(rs.size() == 1U);
 		unfulfilled_error::entry::requests_type requests;

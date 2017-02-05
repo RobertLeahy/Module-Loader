@@ -1,4 +1,4 @@
-#include <module_loader/inplace_offer.hpp>
+#include <module_loader/in_place_offer.hpp>
 #include <typeinfo>
 #include <utility>
 #include <vector>
@@ -8,10 +8,10 @@ namespace module_loader {
 namespace test {
 namespace {
 
-SCENARIO("A module_loader::inplace_offer may make no requests","[module_loader][inplace_offer]") {
-	GIVEN("A module_loader::inplace_offer templated on only one argument") {
+SCENARIO("A module_loader::in_place_offer may make no requests","[module_loader][in_place_offer]") {
+	GIVEN("A module_loader::in_place_offer templated on only one argument") {
 		using type = std::vector<int>;
-		using offer_type = inplace_offer<type>;
+		using offer_type = in_place_offer<type>;
 		offer_type offer;
 		THEN("It makes no requests") {
 			CHECK(offer.requests().empty());
@@ -50,10 +50,10 @@ SCENARIO("A module_loader::inplace_offer may make no requests","[module_loader][
 	}
 }
 
-SCENARIO("A module_loader::inplace_offer may make requests","[module_loader][inplace_offer]") {
-	GIVEN("A module_loader::inplace_offer templated on more than one argument") {
+SCENARIO("A module_loader::in_place_offer may make requests","[module_loader][in_place_offer]") {
+	GIVEN("A module_loader::in_place_offer templated on more than one argument") {
 		using type = int;
-		using offer_type = inplace_offer<int,int>;
+		using offer_type = in_place_offer<int,int>;
 		offer_type offer;
 		THEN("It makes one or more requests") {
 			auto && rs = offer.requests();
@@ -103,10 +103,10 @@ SCENARIO("A module_loader::inplace_offer may make requests","[module_loader][inp
 	}
 }
 
-SCENARIO("A module_loader::inplace_offer may have a custom name","[module_loader][inplace_offer]") {
-	GIVEN("A module_loader::inplace_offer constructed with a custom name") {
+SCENARIO("A module_loader::in_place_offer may have a custom name","[module_loader][in_place_offer]") {
+	GIVEN("A module_loader::in_place_offer constructed with a custom name") {
 		using type = std::vector<int>;
-		using offer_type = inplace_offer<type>;
+		using offer_type = in_place_offer<type>;
 		offer_type offer("foo");
 		THEN("Its name is correct") {
 			CHECK(offer.name() == "foo");
@@ -123,10 +123,10 @@ SCENARIO("A module_loader::inplace_offer may have a custom name","[module_loader
 	}
 }
 
-SCENARIO("A module_loader::inplace_offer may fulfill requests with a std::shared_ptr","[module_loader][inplace_offer]") {
-	GIVEN("A module_loader::inplace_offer") {
+SCENARIO("A module_loader::in_place_offer may fulfill requests with a std::shared_ptr","[module_loader][in_place_offer]") {
+	GIVEN("A module_loader::in_place_offer") {
 		using type = std::vector<int>;
-		using offer_type = inplace_offer<type>;
+		using offer_type = in_place_offer<type>;
 		offer_type offer;
 		WHEN("It is fulfilled and a std::shared_ptr is requested") {
 			auto ptr = offer.fulfill_shared(offer_type::fulfill_type{});

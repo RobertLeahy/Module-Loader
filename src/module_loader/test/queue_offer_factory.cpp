@@ -1,5 +1,5 @@
 #include <module_loader/queue_offer_factory.hpp>
-#include <module_loader/inplace_offer.hpp>
+#include <module_loader/in_place_offer.hpp>
 #include <memory>
 #include <utility>
 #include <catch.hpp>
@@ -24,10 +24,10 @@ SCENARIO("module_loader::queue_offer_factory objects return module_loader::offer
 	GIVEN("A module_loader::queue_offer_factory") {
 		queue_offer_factory qrf;
 		WHEN("Two module_loader::offer objects are enqueued") {
-			std::unique_ptr<offer> ptr(std::make_unique<inplace_offer<double,double>>());
+			std::unique_ptr<offer> ptr(std::make_unique<in_place_offer<double,double>>());
 			offer * first = ptr.get();
 			qrf.add(std::move(ptr));
-			ptr = std::make_unique<inplace_offer<int,int>>();
+			ptr = std::make_unique<in_place_offer<int,int>>();
 			offer * second = ptr.get();
 			qrf.add(std::move(ptr));
 			AND_WHEN("module_loader::queue_offer_factory::next is invoked") {

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "inplace_object.hpp"
+#include "in_place_object.hpp"
 #include "object.hpp"
 #include "reference_object.hpp"
 #include "variadic_offer.hpp"
@@ -34,7 +34,7 @@ using function_offer_t = std::decay_t<function_offer_result_t<F,Ts...>>;
  *	If the wrapped functor returns by lvalue
  *	reference then the offered object is of
  *	type \ref reference_object, otherwise it
- *	is of type \ref inplace_object.
+ *	is of type \ref in_place_object.
  *
  *	\tparam F
  *		The type of functor to store and invoke.
@@ -60,7 +60,7 @@ private:
 		std::conditional_t<
 			std::is_same<value_type,void>::value,
 			void_object,
-			inplace_object<value_type>
+			in_place_object<value_type>
 		>
 	>;
 	using tag_t = typename std::is_same<value_type,void>::type;

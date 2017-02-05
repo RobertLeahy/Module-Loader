@@ -3,8 +3,8 @@ add_executable(tests
 	dag_resolver.cpp
 	exception.cpp
 	function_offer.cpp
-	inplace_object.cpp
-	inplace_offer.cpp
+	in_place_object.cpp
+	in_place_offer.cpp
 	main.cpp
 	queue_offer_factory.cpp
 	queue_shared_library_factory.cpp
