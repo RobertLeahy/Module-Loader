@@ -1,6 +1,7 @@
 add_executable(tests
 	bases.cpp
 	dag_resolver.cpp
+	directory_scanning_shared_library_factory.cpp
 	exception.cpp
 	function_offer.cpp
 	in_place_object.cpp
@@ -9,6 +10,7 @@ add_executable(tests
 	queue_offer_factory.cpp
 	queue_shared_library_factory.cpp
 	reference_object.cpp
+	shared_library_directory_entry_filter.cpp
 	shared_library_offer_factory.cpp
 	type_name.cpp
 	type_traits.cpp

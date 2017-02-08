@@ -1,7 +1,11 @@
 add_library(module_loader SHARED
+	counting_directory_scanning_shared_library_factory_observer.cpp
 	counting_resolver_observer.cpp
 	counting_shared_library_offer_factory_observer.cpp
 	dag_resolver.cpp
+	directory_entry_filter.cpp
+	directory_scanning_shared_library_factory.cpp
+	directory_scanning_shared_library_factory_observer.cpp
 	exception.cpp
 	not_a_dag_error.cpp
 	object.cpp
@@ -11,6 +15,7 @@ add_library(module_loader SHARED
 	queue_shared_library_factory.cpp
 	request.cpp
 	resolver_observer.cpp
+	shared_library_directory_entry_filter.cpp
 	shared_library_factory.cpp
 	shared_library_offer_factory.cpp
 	shared_library_offer_factory_observer.cpp
