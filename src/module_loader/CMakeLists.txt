@@ -24,5 +24,5 @@ add_library(module_loader SHARED
 	void_object.cpp
 	whereami.cpp
 )
-target_link_libraries(module_loader ${Boost_LIBRARIES})
+target_link_libraries(module_loader ${Boost_LIBRARIES} ${CMAKE_DL_LIBS})
 add_subdirectory(test)
