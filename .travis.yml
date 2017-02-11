@@ -1,0 +1,26 @@
+language: cpp
+dist: trusty
+sudo: required
+matrix:
+    include:
+        -   os: linux
+            env: COMPILER=g++-6 COMPILER_FLAGS="-Wall -Wpedantic -Wextra -Werror"
+            addons:
+                apt:
+                    sources:
+                        -   ubuntu-toolchain-r-test
+                    packages:
+                        -   libboost1.55-all-dev
+                        -   g++-6
+before_install:
+    -   git clone https://github.com/boostorg/dll.git
+    -   sudo cp -r ./dll/include/boost/* /usr/include/boost
+    -   export CXX=${COMPILER}
+    -   export CXXFLAGS=${COMPILER_FLAGS}
+script:
+    -   sed -i -r "s/^find_package\\(Boost 1\\.61\\.0/add_definitions(-DBOOST_CXX14_CONSTEXPR=constexpr)\\nfind_package(Boost 1.55.0/g" CMakeLists.txt
+    -   cat CMakeLists.txt
+    -   mkdir build
+    -   cd build
+    -   cmake .. -DCMAKE_BUILD_TYPE=Debug -DBOOST_LIBRARYDIR=/usr/lib/x86_64-linux-gnu
+    -   make VERBOSE=1
