@@ -23,5 +23,5 @@ script:
     -   mkdir build
     -   cd build
     -   cmake .. -DCMAKE_BUILD_TYPE=Debug -DBOOST_LIBRARYDIR=/usr/lib/x86_64-linux-gnu
-    -   make VERBOSE=1
+    -   cmake --build .
     -   ctest -VV
