@@ -8,3 +8,10 @@ add_library(shared_library_offer_factory_success SHARED success.cpp)
 target_link_libraries(shared_library_offer_factory_success module_loader)
 add_library(shared_library_offer_factory_throws SHARED throws.cpp)
 target_link_libraries(shared_library_offer_factory_throws module_loader)
+add_dependencies(tests
+	shared_library_offer_factory_fulfill_throws
+	shared_library_offer_factory_multiple
+	shared_library_offer_factory_none
+	shared_library_offer_factory_success
+	shared_library_offer_factory_throws
+)

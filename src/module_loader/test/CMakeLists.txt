@@ -20,15 +20,4 @@ add_executable(tests
 target_link_libraries(tests module_loader)
 target_include_directories(tests PRIVATE ${CATCH_INCLUDE_DIR})
 add_subdirectory(shared_library_offer_factory)
-add_custom_target(tests_run ALL
-	COMMAND tests
-	DEPENDS
-		shared_library_offer_factory_fulfill_throws
-		shared_library_offer_factory_multiple
-		shared_library_offer_factory_none
-		shared_library_offer_factory_success
-		shared_library_offer_factory_throws
-		tests
-	WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-	COMMENT "Run test suite"
-)
+add_test(NAME tests COMMAND tests)
