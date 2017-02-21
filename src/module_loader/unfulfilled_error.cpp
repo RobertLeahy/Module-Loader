@@ -69,7 +69,7 @@ static std::string get_what (const unfulfilled_error::entries_type & entries) {
 	std::ostringstream ss;
 	ss << "Unable to fulfill all requests of the following offers:";
 	for (std::size_t i = 0; i < entries.size(); ++i) {
-		ss << "\n#" << (i + 1) << ": ";
+		ss << "\n#" << i << ": ";
 		entries[i].to_string(ss);
 	}
 	return ss.str();

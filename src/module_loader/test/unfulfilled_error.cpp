@@ -39,7 +39,7 @@ SCENARIO("module_loader::unfulfilled_error generates an error message appropriat
 			auto str = error.what();
 			std::string expected(
 				"Unable to fulfill all requests of the following offers:\n"
-				"#1: int:\n"
+				"#0: int:\n"
 				"\t#0: int [1, 1] fulfilled by []"
 			);
 			CHECK(str == expected);
