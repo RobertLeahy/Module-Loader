@@ -142,6 +142,9 @@ SCENARIO("module_loader::function_offer objects may wrap a functor which does no
 				AND_THEN("module_loader::object::provides returns the empty set") {
 					CHECK(ptr->provides().empty());
 				}
+				AND_THEN("module_loader::object::name returns the correct value") {
+					CHECK(ptr->name() == "void");
+				}
 			}
 		}
 		WHEN("It is fulfilled and a std::shared_ptr is requested") {
@@ -165,6 +168,26 @@ SCENARIO("module_loader::function_offer objects may wrap a functor which does no
 				}
 				AND_THEN("module_loader::object::provides returns the empty set") {
 					CHECK(ptr->provides().empty());
+				}
+				AND_THEN("module_loader::object::name returns the correct value") {
+					CHECK(ptr->name() == "void");
+				}
+			}
+		}
+	}
+	GIVEN("A module_loader::function_offer which wraps a function which does not return a value and which has a custom name") {
+		using function_type = std::function<void ()>;
+		function_type function = [] () noexcept {	};
+		function_offer<function_type> offer(function,"foo");
+		THEN("Its name is correct") {
+			CHECK(offer.name() == "foo");
+		}
+		WHEN("It is fulfilled and a std::unique_ptr is requested") {
+			auto ptr = offer.fulfill({});
+			THEN("An object is returned") {
+				REQUIRE(ptr);
+				AND_THEN("module_loader::object::name returns the correct value") {
+					CHECK(ptr->name() == "foo");
 				}
 			}
 		}

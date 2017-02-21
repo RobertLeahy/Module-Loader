@@ -76,14 +76,14 @@ private:
 	}
 	std::unique_ptr<object> fulfill (const fulfill_type & objects, std::true_type) {
 		invoke(objects);
-		return std::make_unique<object_type>();
+		return std::make_unique<object_type>(*this);
 	}
 	std::unique_ptr<object> fulfill (const fulfill_type & objects, std::false_type) {
 		return std::make_unique<object_type>(*this,invoke(objects));
 	}
 	std::shared_ptr<object> fulfill_shared (const fulfill_type & objects, std::true_type) {
 		invoke(objects);
-		return std::make_shared<object_type>();
+		return std::make_shared<object_type>(*this);
 	}
 	std::shared_ptr<object> fulfill_shared (const fulfill_type & objects, std::false_type) {
 		return std::make_shared<object_type>(*this,invoke(objects));
