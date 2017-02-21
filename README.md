@@ -76,3 +76,7 @@ cmake --build .
 ctest
 cmake --build . --target doc
 ```
+
+## Example
+
+See the `example` directory.
