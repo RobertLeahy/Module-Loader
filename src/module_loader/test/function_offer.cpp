@@ -307,6 +307,60 @@ SCENARIO("module_loader::function_offer objects may be provided with a custom na
 	}
 }
 
+SCENARIO("module_loader::make_unique_function_offer may be used to wrap functors","[module_loader][function_offer]") {
+	GIVEN("A std::unique_ptr<module_loader::offer> obtained by calling module_loader::make_unique_function_offer") {
+		auto ptr = module_loader::make_unique_function_offer([] () noexcept {	});
+		THEN("Its name is correct") {
+			CHECK(ptr->name() == "void");
+		}
+		THEN("Its type is correct") {
+			CHECK(ptr->type() == typeid(void));
+		}
+		THEN("Its requests are correct") {
+			CHECK(ptr->requests().empty());
+		}
+	}
+	GIVEN("A std::unique_ptr<module_loader::offer> obtained by calling module_loader::make_unique_function_offer with a custom name") {
+		auto ptr = module_loader::make_unique_function_offer([] () noexcept {	},"bar");
+		THEN("Its name is correct") {
+			CHECK(ptr->name() == "bar");
+		}
+		THEN("Its type is correct") {
+			CHECK(ptr->type() == typeid(void));
+		}
+		THEN("Its requests are correct") {
+			CHECK(ptr->requests().empty());
+		}
+	}
+}
+
+SCENARIO("module_loader::make_shared_function_offer may be used to wrap functors","[module_loader][function_offer]") {
+	GIVEN("A std::shared_ptr<module_loader::offer> obtained by calling module_loader::make_shared_function_offer") {
+		auto ptr = module_loader::make_shared_function_offer([] () noexcept {	});
+		THEN("Its name is correct") {
+			CHECK(ptr->name() == "void");
+		}
+		THEN("Its type is correct") {
+			CHECK(ptr->type() == typeid(void));
+		}
+		THEN("Its requests are correct") {
+			CHECK(ptr->requests().empty());
+		}
+	}
+	GIVEN("A std::shared_ptr<module_loader::offer> obtained by calling module_loader::make_shared_function_offer with a custom name") {
+		auto ptr = module_loader::make_shared_function_offer([] () noexcept {	},"bar");
+		THEN("Its name is correct") {
+			CHECK(ptr->name() == "bar");
+		}
+		THEN("Its type is correct") {
+			CHECK(ptr->type() == typeid(void));
+		}
+		THEN("Its requests are correct") {
+			CHECK(ptr->requests().empty());
+		}
+	}
+}
+
 }
 }
 }

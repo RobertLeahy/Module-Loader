@@ -6,6 +6,7 @@
 
 #include "in_place_object.hpp"
 #include "object.hpp"
+#include "offer.hpp"
 #include "reference_object.hpp"
 #include "variadic_offer.hpp"
 #include "void_object.hpp"
@@ -115,5 +116,56 @@ public:
 		return fulfill_shared(objects,tag);
 	}
 };
+
+/**
+ *	A helper function which creates a \ref function_offer which
+ *	invokes a certain function with arguments of certain types.
+ *
+ *	\tparam Args
+ *		The types with which to invoke the function object of
+ *		type \em F.
+ *	\tparam F
+ *		The type of function object to invoke.
+ *
+ *	\param [in] func
+ *		The function object to invoke.
+ *
+ *	\return
+ *		A smart pointer to an \ref offer.
+ */
+template <typename... Args, typename F>
+std::unique_ptr<offer> make_unique_function_offer (F && func) {
+	return std::make_unique<function_offer<std::decay_t<F>,Args...>>(std::forward<F>(func));
+}
+template <typename... Args, typename F>
+std::shared_ptr<offer> make_shared_function_offer (F && func) {
+	return std::make_shared<function_offer<std::decay_t<F>,Args...>>(std::forward<F>(func));
+}
+/**
+ *	A helper function which creates a \ref function_offer which
+ *	invokes a certain function with arguments of certain types.
+ *
+ *	\tparam Args
+ *		The types with which to invoke the function object of
+ *		type \em F.
+ *	\tparam F
+ *		The type of function object to invoke.
+ *
+ *	\param [in] func
+ *		The function object to invoke.
+ *	\param [in] name
+ *		A custom name for the resulting \ref offer.
+ *
+ *	\return
+ *		A smart pointer to an \ref offer.
+ */
+template <typename... Args, typename F>
+std::unique_ptr<offer> make_unique_function_offer (F && func, std::string name) {
+	return std::make_unique<function_offer<std::decay_t<F>,Args...>>(std::forward<F>(func),std::move(name));
+}
+template <typename... Args, typename F>
+std::shared_ptr<offer> make_shared_function_offer (F && func, std::string name) {
+	return std::make_shared<function_offer<std::decay_t<F>,Args...>>(std::forward<F>(func),std::move(name));
+}
 
 }
