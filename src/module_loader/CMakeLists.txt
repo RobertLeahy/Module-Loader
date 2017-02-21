@@ -11,6 +11,7 @@ add_library(module_loader SHARED
 	object.cpp
 	offer.cpp
 	offer_factory.cpp
+	offer_factory_composite.cpp
 	queue_offer_factory.cpp
 	queue_shared_library_factory.cpp
 	request.cpp

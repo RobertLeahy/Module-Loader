@@ -7,6 +7,7 @@ add_executable(tests
 	in_place_object.cpp
 	in_place_offer.cpp
 	main.cpp
+	offer_factory_composite.cpp
 	queue_offer_factory.cpp
 	queue_shared_library_factory.cpp
 	reference_object.cpp
