@@ -11,6 +11,7 @@ add_executable(tests
 	queue_offer_factory.cpp
 	queue_shared_library_factory.cpp
 	reference_object.cpp
+	reference_offer.cpp
 	shared_library_directory_entry_filter.cpp
 	shared_library_offer_factory.cpp
 	type_name.cpp
